@@ -1,0 +1,10 @@
+dn: uid=monitor
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+sn: User
+cn: Monitor
+ds-privilege-name: monitor-read
+ds-privilege-name: jmx-read
+

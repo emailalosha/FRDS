@@ -1,0 +1,437 @@
+#
+# Copyright 2014-2020 ForgeRock AS. All Rights Reserved
+#
+# Use of this code requires a commercial software license with ForgeRock AS.
+# or with one of its affiliates. All use shall be exclusively subject
+# to such license between the licensee and ForgeRock AS.
+#
+
+# This file contains the attribute type and objectclass definitions for use
+# with the Directory Server configuration.
+dn: cn=schema
+objectClass: top
+objectClass: ldapSubentry
+objectClass: subschema
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.561
+  NAME 'ds-pwp-default-password-storage-scheme'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.562
+  NAME 'ds-pwp-account-status-notification-handler'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.563
+  NAME 'ds-pwp-allow-expired-password-changes'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.564
+  NAME 'ds-pwp-allow-multiple-password-values'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.565
+  NAME 'ds-pwp-allow-pre-encoded-passwords'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.566
+  NAME 'ds-pwp-deprecated-password-storage-scheme'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.567
+  NAME 'ds-pwp-expire-passwords-without-warning'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.568
+  NAME 'ds-pwp-force-change-on-add'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.569
+  NAME 'ds-pwp-idle-lockout-interval'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.570
+  NAME 'ds-pwp-last-login-time-attribute'
+  EQUALITY objectIdentifierMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.38
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.571
+  NAME 'ds-pwp-last-login-time-format'
+  EQUALITY caseExactMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.572
+  NAME 'ds-pwp-max-password-reset-age'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.573
+  NAME 'ds-pwp-previous-last-login-time-format'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.574
+  NAME 'ds-pwp-require-change-by-time'
+  EQUALITY generalizedTimeMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.24
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.575
+  NAME 'ds-pwp-require-secure-authentication'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.576
+  NAME 'ds-pwp-require-secure-password-changes'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.577
+  NAME 'ds-pwp-skip-validation-for-administrators'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.578
+  NAME 'ds-pwp-state-update-failure-policy'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.579
+  NAME 'ds-pwp-password-history-duration'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.580
+  NAME 'ds-pwp-length-based-max-password-length'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.581
+  NAME 'ds-pwp-length-based-min-password-length'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.582
+  NAME 'ds-pwp-random-password-character-set'
+  EQUALITY caseExactMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.583
+  NAME 'ds-pwp-random-password-format'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.584
+  NAME 'ds-pwp-similarity-based-min-password-difference'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.585
+  NAME 'ds-pwp-unique-characters-min-unique-characters'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.586
+  NAME 'ds-pwp-repeated-characters-max-consecutive-length'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.587
+  NAME 'ds-pwp-repeated-characters-case-sensitive-validation'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.588
+  NAME 'ds-pwp-dictionary-data'
+  EQUALITY octetStringMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.40
+  SINGLE-VALUE
+  DESC 'A gzipped password dictionary, one word per line'
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.589
+  NAME 'ds-pwp-dictionary-check-substrings'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.590
+  NAME 'ds-pwp-dictionary-min-substring-length'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.591
+  NAME 'ds-pwp-dictionary-test-reversed-password'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.592
+  NAME 'ds-pwp-attribute-value-match-attribute'
+  EQUALITY objectIdentifierMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.38
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.593
+  NAME 'ds-pwp-character-set-min-character-sets'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.594
+  NAME 'ds-pwp-character-set-character-set-ranges'
+  EQUALITY caseExactMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.595
+  NAME 'ds-pwp-character-set-allow-unclassified-characters'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.597
+  NAME 'ds-pwp-dictionary-case-sensitive-validation'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.598
+  NAME 'ds-pwp-character-set-character-set'
+  EQUALITY caseExactMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.599
+  NAME 'ds-pwp-unique-characters-case-sensitive-validation'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.600
+  NAME 'ds-pwp-attribute-value-check-substrings'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.601
+  NAME 'ds-pwp-attribute-value-min-substring-length'
+  EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.602
+  NAME 'ds-pwp-attribute-value-test-reversed-password'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.603
+  NAME 'ds-pwp-password-attribute'
+  EQUALITY objectIdentifierMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.38
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.604
+  NAME 'ds-pwp-min-password-age'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.605
+  NAME 'ds-pwp-max-password-age'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.606
+  NAME 'ds-pwp-password-history-count'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.607
+  NAME 'ds-pwp-password-expiration-warning-interval'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.608
+  NAME 'ds-pwp-grace-login-count'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.609
+  NAME 'ds-pwp-lockout-duration'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.610
+  NAME 'ds-pwp-lockout-failure-count'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.611
+  NAME 'ds-pwp-force-change-on-reset'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.612
+  NAME 'ds-pwp-allow-user-password-changes'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.613
+  NAME 'ds-pwp-password-change-requires-current-password'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+attributeTypes: ( 1.3.6.1.4.1.36733.2.1.1.614
+  NAME 'ds-pwp-lockout-failure-expiration-interval'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE
+  X-ORIGIN 'ForgeRock Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.18
+  NAME 'pwdValidatorPolicy'
+  DESC 'This auxiliary objectClass represents a password validator by referencing one from the configuration.
+  It has been replaced with ds-pwp-validator and will be obsoleted in future versions'
+  SUP top
+  AUXILIARY
+  MUST ( ds-cfg-password-validator )
+  X-DEPRECATED-SINCE '7.0.0'
+  X-ORIGIN 'OpenDJ Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.110
+  NAME 'ds-pwp-password-policy'
+  SUP top
+  AUXILIARY
+  MUST ( ds-pwp-password-attribute $
+         ds-pwp-default-password-storage-scheme )
+  MAY ( cn $
+        ds-pwp-min-password-age $
+        ds-pwp-max-password-age $
+        ds-pwp-password-history-count $
+        ds-pwp-password-expiration-warning-interval $
+        ds-pwp-grace-login-count $
+        ds-pwp-lockout-duration $
+        ds-pwp-lockout-failure-count $
+        ds-pwp-force-change-on-reset $
+        ds-pwp-allow-user-password-changes $
+        ds-pwp-password-change-requires-current-password $
+        ds-pwp-lockout-failure-expiration-interval $
+        ds-pwp-account-status-notification-handler $
+        ds-pwp-allow-expired-password-changes $
+        ds-pwp-allow-multiple-password-values $
+        ds-pwp-allow-pre-encoded-passwords $
+        ds-pwp-deprecated-password-storage-scheme $
+        ds-pwp-expire-passwords-without-warning $
+        ds-pwp-force-change-on-add $
+        ds-pwp-idle-lockout-interval $
+        ds-pwp-last-login-time-attribute $
+        ds-pwp-last-login-time-format $
+        ds-pwp-max-password-reset-age $
+        ds-pwp-previous-last-login-time-format $
+        ds-pwp-require-change-by-time $
+        ds-pwp-require-secure-authentication $
+        ds-pwp-require-secure-password-changes $
+        ds-pwp-skip-validation-for-administrators $
+        ds-pwp-state-update-failure-policy $
+        ds-pwp-password-history-duration )
+  X-ORIGIN 'ForgeRock Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.111
+  NAME 'ds-pwp-validator'
+  SUP top
+  ABSTRACT
+  X-ORIGIN 'ForgeRock Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.112
+  NAME 'ds-pwp-length-based-validator'
+  SUP ds-pwp-validator
+  AUXILIARY
+  MAY ( ds-pwp-length-based-max-password-length $
+        ds-pwp-length-based-min-password-length )
+  X-ORIGIN 'ForgeRock Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.113
+  NAME 'ds-pwp-random-generator'
+  SUP top
+  AUXILIARY
+  MUST ( ds-pwp-random-password-character-set $
+         ds-pwp-random-password-format )
+  X-ORIGIN 'ForgeRock Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.114
+  NAME 'ds-pwp-similarity-based-validator'
+  SUP ds-pwp-validator
+  AUXILIARY
+  MAY ds-pwp-similarity-based-min-password-difference
+  X-ORIGIN 'ForgeRock Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.115
+  NAME 'ds-pwp-unique-characters-validator'
+  SUP ds-pwp-validator
+  AUXILIARY
+  MAY ( ds-pwp-unique-characters-min-unique-characters $
+        ds-pwp-unique-characters-case-sensitive-validation )
+  X-ORIGIN 'ForgeRock Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.116
+  NAME 'ds-pwp-repeated-characters-validator'
+  SUP ds-pwp-validator
+  AUXILIARY
+  MAY ( ds-pwp-repeated-characters-max-consecutive-length $
+        ds-pwp-repeated-characters-case-sensitive-validation )
+  X-ORIGIN 'ForgeRock Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.117
+  NAME 'ds-pwp-dictionary-validator'
+  SUP ds-pwp-validator
+  AUXILIARY
+  MUST ds-pwp-dictionary-data
+  MAY ( ds-pwp-dictionary-test-reversed-password $
+        ds-pwp-dictionary-case-sensitive-validation $
+        ds-pwp-dictionary-check-substrings $
+        ds-pwp-dictionary-min-substring-length )
+  X-ORIGIN 'ForgeRock Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.118
+  NAME 'ds-pwp-attribute-value-validator'
+  SUP ds-pwp-validator
+  AUXILIARY
+  MAY ( ds-pwp-attribute-value-test-reversed-password $
+        ds-pwp-attribute-value-match-attribute $
+        ds-pwp-attribute-value-check-substrings $
+        ds-pwp-attribute-value-min-substring-length )
+  X-ORIGIN 'ForgeRock Directory Server' )
+objectClasses: ( 1.3.6.1.4.1.36733.2.1.2.119
+  NAME 'ds-pwp-character-set-validator'
+  SUP ds-pwp-validator
+  AUXILIARY
+  MAY ( ds-pwp-character-set-allow-unclassified-characters $
+        ds-pwp-character-set-min-character-sets $
+        ds-pwp-character-set-character-set $
+        ds-pwp-character-set-character-set-ranges )
+  X-ORIGIN 'ForgeRock Directory Server' )

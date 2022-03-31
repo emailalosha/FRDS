@@ -1,0 +1,30 @@
+//
+// Copyright 2018 ForgeRock AS. All Rights Reserved
+//
+// Use of this code requires a commercial software license with ForgeRock AS.
+// or with one of its affiliates. All use shall be exclusively subject
+// to such license between the licensee and ForgeRock AS.
+//
+// WARNING: only use this logger when running the server with "start-ds --noDetach".
+//          Using this logger without the "--noDetach" option may fill up your disk:
+//          without the "--noDetach" option, the server runs as a daemon and redirects stdout
+//          to /path/to/opendj/logs/server.out, which has no support for rotation/purging
+//          and is only cleared when the server start.
+//
+// Example configuration to output LDAP access logs to stdout.
+// Edit a copy of the file with your settings.
+// Strip comments before use with grep -v '^[ ]*//' < your-file.json
+//
+{
+  "class": "org.forgerock.audit.handlers.json.stdout.JsonStdoutAuditEventHandler",
+  "config": {
+    "enabled": false,
+    "name": "json.stdout",
+    "elasticsearchCompatible" : false,
+    // Select one value, "ldap-access" for an External Access Log Publisher,
+    //                   "http-access" for an External HTTP Access Log Publisher
+    "topics": [
+      "ldap-access"
+    ]
+  }
+}
