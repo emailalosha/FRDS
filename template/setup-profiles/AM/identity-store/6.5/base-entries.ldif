@@ -1,0 +1,44 @@
+#
+# Copyright 2018-2020 ForgeRock AS. All Rights Reserved
+#
+# Use of this code requires a commercial software license with ForgeRock AS.
+# or with one of its affiliates. All use shall be exclusively subject
+# to such license between the licensee and ForgeRock AS.
+#
+dn: &{AM_IDENTITY_STORE_BASE_DN}
+objectClass: top
+objectClass: untypedObject
+aci: (targetattr="*||aci")(version 3.0; acl "Read, write and proxy identities"; allow (all, proxy)
+ (userdn = "ldap:///uid=am-identity-bind-account,ou=admins,&{AM_IDENTITY_STORE_BASE_DN}");)
+aci: (targetattr="+")(version 3.0; acl "Read operational attributes"; allow (read, search, compare)
+ (userdn = "ldap:///uid=am-identity-bind-account,ou=admins,&{AM_IDENTITY_STORE_BASE_DN}");)
+aci: (targetcontrol="PersistentSearch||ProxiedAuth")(version 3.0;acl "Persistent searches and proxy auth"; allow (read)
+ (userdn = "ldap:///uid=am-identity-bind-account,ou=admins,&{AM_IDENTITY_STORE_BASE_DN}");)
+
+dn: ou=people,&{AM_IDENTITY_STORE_BASE_DN}
+objectClass: organizationalunit
+objectClass: top
+ou: people
+
+dn: ou=groups,&{AM_IDENTITY_STORE_BASE_DN}
+objectClass: organizationalunit
+objectClass: top
+ou: groups
+
+dn: ou=admins,&{AM_IDENTITY_STORE_BASE_DN}
+objectClass: top
+objectClass: organizationalunit
+ou: admins
+
+dn: uid=am-identity-bind-account,ou=admins,&{AM_IDENTITY_STORE_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: am-identity-bind-account
+sn: am-identity-bind-account
+uid: am-identity-bind-account
+userPassword: &{AM_IDENTITY_STORE_ADMIN_PASSWORD}
+ds-privilege-name: password-reset
+ds-privilege-name: proxied-auth
+ds-privilege-name: modify-acl

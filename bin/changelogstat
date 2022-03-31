@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Copyright 2018 ForgeRock AS. All Rights Reserved
+#
+# Use of this code requires a commercial software license with ForgeRock AS.
+# or with one of its affiliates. All use shall be exclusively subject
+# to such license between the licensee and ForgeRock AS.
+
+# This script may be used to debug file based changelog in the Directory Server.
+OPENDJ_INVOKE_CLASS="org.opends.server.replication.server.changelog.file.ChangelogStat"
+export OPENDJ_INVOKE_CLASS
+
+SCRIPT_NAME="changelogstat"
+export SCRIPT_NAME
+
+SCRIPT_DIR=`dirname "${0}"`
+"${SCRIPT_DIR}/../lib/_server-script.sh" "${@}"

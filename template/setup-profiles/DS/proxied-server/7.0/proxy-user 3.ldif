@@ -1,0 +1,18 @@
+#
+# Copyright 2020 ForgeRock AS. All Rights Reserved
+#
+# Use of this code requires a commercial software license with ForgeRock AS.
+# or with one of its affiliates. All use shall be exclusively subject
+# to such license between the licensee and ForgeRock AS.
+#
+dn: &{DS_PROXIED_SERVER_USER_DN}
+objectClass: top
+objectClass: untypedObject
+objectClass: ds-certificate-user
+ds-certificate-subject-dn: &{DS_PROXIED_SERVER_SUBJECT_DN}
+ds-privilege-name: config-read
+ds-privilege-name: monitor-read
+ds-privilege-name: proxied-auth
+aci: (targetcontrol="ProxiedAuthV2")
+ (version 3.0; acl "Allow proxied authorization";
+ allow(read) userdn="ldap:///&{DS_PROXIED_SERVER_USER_DN}";)

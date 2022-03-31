@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Copyright 2018 ForgeRock AS. All Rights Reserved
+#
+# Use of this code requires a commercial software license with ForgeRock AS.
+# or with one of its affiliates. All use shall be exclusively subject
+# to such license between the licensee and ForgeRock AS.
+
+# This script may be used to perform some replication specific operations.
+OPENDJ_INVOKE_CLASS="org.forgerock.opendj.tools.dsrepl.DsReplCli"
+export OPENDJ_INVOKE_CLASS
+
+SCRIPT_DIR=`dirname "${0}"`
+SCRIPT_ARGS=""
+export SCRIPT_ARGS
+SCRIPT_NAME="dsrepl"
+export SCRIPT_NAME
+
+"${SCRIPT_DIR}/../lib/_client-script.sh" "${@}"

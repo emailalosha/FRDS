@@ -1,0 +1,416 @@
+======================================================
+== OpenDJ sustaining/7.1.x - Open Source Copyrights ==
+======================================================
+
+activation-1.1.1.jar
+====================
+Licensed under CDDL 1.1
+License terms can be found at: http://index.whitesourcesoftware.com/nexus/content/groups/public/javax/activation/activation/1.1.1/activation-1.1.1.pom
+Copyright 2021 Oracle
+
+activation-1.1.jar
+==================
+Licensed under CDDL 1.1
+License terms can be found at: https://javaee.github.io/glassfish/LICENSE
+Copyright 2006 SUN MICROSYSTEMS, INC.
+
+aws-s3-2.4.0.jar
+================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/jclouds/provider/aws-s3/2.4.0/aws-s3-2.4.0.pom
+Copyright 2009-2021 The Apache Software Foundation
+
+azureblob-2.4.0.jar
+===================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/jclouds/provider/azureblob/2.4.0/azureblob-2.4.0.pom
+Copyright 2009-2021 The Apache Software Foundation
+
+checker-qual-3.19.0.jar
+=======================
+Licensed under MIT
+License terms can be found at: https://repo.maven.apache.org/maven2/org/checkerframework/checker-qual/3.19.0/checker-qual-3.19.0.pom
+Copyright 2004 by the Checker Framework developers
+
+error_prone_annotations-2.3.4.jar
+=================================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.3.4/error_prone_annotations-2.3.4.pom
+Copyright 2015 The Error Prone Authors
+
+failureaccess-1.0.1.jar
+=======================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.pom
+Copyright 2020 Google LLC
+
+google-cloud-storage-2.4.0.jar
+==============================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/jclouds/provider/google-cloud-storage/2.4.0/google-cloud-storage-2.4.0.pom
+Copyright 2009-2021 The Apache Software Foundation
+
+googlecloud-2.4.0.jar
+=====================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/jclouds/common/googlecloud/2.4.0/googlecloud-2.4.0.pom
+Copyright 2009-2021 The Apache Software Foundation
+
+groovy-3.0.9.jar
+================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/codehaus/groovy/groovy/3.0.9/groovy-3.0.9.pom
+Copyright 2003-2021 The Apache Software Foundation
+Copyright 1989-2006 developed by Terence Parr
+Copyright 2010-2012 Google Inc
+Copyright 2012-2017 The ANTLR Project
+
+gson-2.8.9.jar
+==============
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.9/gson-2.8.9.pom
+Copyright 2008 Google
+
+guava-30.1-jre.jar
+==================
+Licensed under Apache 2.0
+Source Code can be found at: https://github.com/google/guava
+License terms can be found at: https://repo.maven.apache.org/maven2/com/google/guava/guava/30.1-jre/guava-30.1-jre.pom
+Copyright The Guava Authors
+
+guice-4.2.1.jar
+===============
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/com/google/inject/guice/4.2.1/guice-4.2.1.pom
+Copyright 2006-2018 Google, Inc
+Copyright 2006 Google Inc
+
+guice-assistedinject-4.2.1.jar
+==============================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/com/google/inject/extensions/guice-assistedinject/4.2.1/guice-assistedinject-4.2.1.pom
+Copyright 2006-2018 Google, Inc
+Copyright 2006 Google Inc
+
+HdrHistogram-2.1.4.jar
+======================
+Licensed under BSD 2
+License terms can be found at: https://github.com/HdrHistogram/HdrHistogram/blob/HdrHistogram-2.1.4/LICENSE.txt
+Copyright 2012 Matt Warren, Michael Barker, Gil Tene
+
+hdrhistogram-metrics-reservoir-1.1.0.jar
+========================================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/mpierce/metrics/reservoir/hdrhistogram-metrics-reservoir/1.1.0/hdrhistogram-metrics-reservoir-1.1.0.pom
+2014 Copyright 2014 Marshall Pierce
+
+httpasyncclient-osgi-4.1.4.jar
+==============================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpasyncclient-osgi/4.1.4/httpasyncclient-osgi-4.1.4.pom
+Copyright 2010-2018 The Apache Software Foundation
+
+httpclient-osgi-4.5.13-forgerock.jar
+====================================
+Licensed under Apache 2.0
+License terms can be found at: https://maven.forgerock.org/repo/internal-releases/org/apache/httpcomponents/httpclient-osgi/4.5.13-forgerock/httpclient-osgi-4.5.13-forgerock.pom
+Copyright 1999 The Apache Software Foundation
+
+httpcore-osgi-4.4.13.jar
+========================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore-osgi/4.4.13/httpcore-osgi-4.4.13.pom
+Copyright 2005-2020 The Apache Software Foundation
+
+httpcore5-5.1.2.jar
+===================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5/5.1.2/httpcore5-5.1.2.pom
+Copyright 2005-2020 The Apache Software Foundation
+
+httpcore5-reactive-5.1.2.jar
+============================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5-reactive/5.1.2/httpcore5-reactive-5.1.2.pom
+Copyright 2005-2020 The Apache Software Foundation
+
+jackson-annotations-2.12.6.jar
+==============================
+Licensed under Apache 2.0
+License terms can be found at: https://nexus.opendaylight.org/content/groups/public/com/fasterxml/jackson/core/jackson-annotations/2.12.6/jackson-annotations-2.12.6.pom
+
+jackson-core-2.12.6.jar
+=======================
+Licensed under Apache 2.0
+License terms can be found at: https://nexus.opendaylight.org/content/groups/public/com/fasterxml/jackson/core/jackson-core/2.12.6/jackson-core-2.12.6.pom
+
+jackson-databind-2.12.6.jar
+===========================
+Licensed under Apache 2.0
+License terms can be found at: https://nexus.opendaylight.org/content/groups/public/com/fasterxml/jackson/core/jackson-databind/2.12.6/jackson-databind-2.12.6.pom
+
+jackson-module-jsonSchema-2.12.6.jar
+====================================
+Licensed under Suspected Apache 2.0
+License terms can be found at: https://github.com/FasterXML/jackson-dataformats-binary
+
+javax.activation-api-1.2.0.jar
+==============================
+Licensed under CDDL 1.0
+License terms can be found at: http://repo.jfrog.org/artifactory/list/repo1/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.pom
+Copyright 1997-2017 Oracle and
+
+javax.annotation-api-1.2.jar
+============================
+Licensed under CDDL 1.1
+License terms can be found at: https://repo.maven.apache.org/maven2/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.pom
+Copyright 2012-2013 Oracle and
+
+javax.jms-api-2.0.1.jar
+=======================
+Licensed under CDDL 1.0
+License terms can be found at: https://mvnrepository.com/artifact/javax.jms/javax.jms-api/2.0.1
+Copyright 2015 Oracle
+
+javax.mail-1.6.2.jar
+====================
+Licensed under CDDL 1.1
+License terms can be found at: https://github.com/javaee/javamail/blob/JAVAMAIL-1_6_2/LICENSE.txt
+2017 Copyright (c) 1997-2017 Oracle and/or its affiliates. All rights reserved.
+
+javax.ws.rs-api-2.0.1.jar
+=========================
+Licensed under CDDL 1.1
+License terms can be found at: https://repo.maven.apache.org/maven2/javax/ws/rs/javax.ws.rs-api/2.0.1/javax.ws.rs-api-2.0.1.pom
+Copyright 2011-2014 Oracle and
+
+javax.xml.soap-api-1.4.0.jar
+============================
+Licensed under CDDL 1.0
+License terms can be found at: http://repo.jfrog.org/artifactory/list/repo1/javax/xml/soap/javax.xml.soap-api/1.4.0/javax.xml.soap-api-1.4.0.pom
+Copyright 2017 Oracle 
+
+jaxb-api-2.3.1.jar
+==================
+Licensed under CDDL 1.1
+License terms can be found at: http://repo.jfrog.org/artifactory/list/repo1/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.pom
+Copyright 1991 , June
+Copyright 2017-2018 Oracle and
+Copyright 1989 Ty Coon, President of Vice This General Public License does not permit incorporating your program in
+Copyright 1995 Oct
+
+jaxb-core-2.3.0.1.jar
+=====================
+Licensed under CDDL 1.1
+License terms can be found at: https://repo.maven.apache.org/maven2/com/sun/xml/bind/jaxb-core/2.3.0.1/jaxb-core-2.3.0.1.pom
+Copyright 2013-2017 Oracle and
+
+jaxb-impl-2.3.0.1.jar
+=====================
+Licensed under CDDL 1.1
+License terms can be found at: https://repo.maven.apache.org/maven2/com/sun/xml/bind/jaxb-impl/2.3.0.1/jaxb-impl-2.3.0.1.pom
+Copyright 2013-2017 Oracle and
+
+jcip-annotations-1.0-1.jar
+==========================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/com/github/stephenc/jcip/jcip-annotations/1.0-1/jcip-annotations-1.0-1.pom
+Unspecified Copyright
+Reviewed by the WhiteSource Research Team
+Library copyrights could not be established
+
+jcl-over-slf4j-1.7.30.jar
+=========================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/slf4j/jcl-over-slf4j/1.7.30/jcl-over-slf4j-1.7.30.pom
+Copyright QOS.ch
+
+jclouds-blobstore-2.4.0.jar
+===========================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/jclouds/jclouds-blobstore/2.4.0/jclouds-blobstore-2.4.0.pom
+Copyright 2009-2021 The Apache Software Foundation
+
+jclouds-core-2.4.0.jar
+======================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/jclouds/jclouds-core/2.4.0/jclouds-core-2.4.0.pom
+Copyright 2009-2021 The Apache Software Foundation
+
+je-18.3.12.jar
+==============
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/com/sleepycat/je/18.3.12/je-18.3.12.pom
+Copyright 2014 Oracle Corporation
+
+jsr305-3.0.0.jar
+================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.pom
+Unspecified Copyright
+Reviewed by the WhiteSource Research Team
+Library copyrights could not be established
+
+jsr305-3.0.2.jar
+================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.pom
+Unspecified Copyright
+Reviewed by the WhiteSource Research Team
+Library copyrights could not be established
+
+jul-to-slf4j-1.7.30.jar
+=======================
+Licensed under MIT
+License terms can be found at: https://repo.maven.apache.org/maven2/org/slf4j/jul-to-slf4j/1.7.30/jul-to-slf4j-1.7.30.pom
+Copyright QOS.ch
+
+listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+==============================================================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.pom
+Copyright 2020 Google LLC
+
+metrics-core-3.2.5.jar
+======================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/io/dropwizard/metrics/metrics-core/3.2.5/metrics-core-3.2.5.pom
+2018 Copyright (c) 2010-2013 Coda Hale, Yammer.com
+
+metrics-graphite-3.2.5.jar
+==========================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/io/dropwizard/metrics/metrics-graphite/3.2.5/metrics-graphite-3.2.5.pom
+2018 Copyright (c) 2010-2013 Coda Hale, Yammer.com
+
+metrics-json-3.2.5.jar
+======================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/io/dropwizard/metrics/metrics-json/3.2.5/metrics-json-3.2.5.pom
+2018 Copyright (c) 2010-2013 Coda Hale, Yammer.com
+
+metrics-jvm-3.2.5.jar
+=====================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/io/dropwizard/metrics/metrics-jvm/3.2.5/metrics-jvm-3.2.5.pom
+2018 Copyright (c) 2010-2013 Coda Hale, Yammer.com
+
+mimepull-1.9.7.jar
+==================
+Licensed under CDDL 1.1
+License terms can be found at: http://repo.jfrog.org/artifactory/list/repo1/org/jvnet/mimepull/mimepull/1.9.7/mimepull-1.9.7.pom
+Copyright 2012-2015 Oracle and
+
+oauth-2.4.0.jar
+===============
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/jclouds/api/oauth/2.4.0/oauth-2.4.0.pom
+Copyright 2009-2021 The Apache Software Foundation
+
+opendmk-1.0-b2.jar
+==================
+Licensed under CDDL 1.0
+License terms can be found at: https://github.com/xtreemfs/opendmk/blob/master/LEGAL_NOTICES/license.txt
+2007 Copyright © 2007 Sun Microsystems,  Inc.,  4150 Network Circle,   Santa Clara,  California 95054, U.S.A. All rights reserved.
+
+org.apache.servicemix.bundles.javax-inject-1_2.jar
+==================================================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/servicemix/bundles/org.apache.servicemix.bundles.javax-inject/1_2/org.apache.servicemix.bundles.javax-inject-1_2.pom
+Copyright 2005-2012 The Apache Software Foundation
+
+reactive-streams-1.0.3.jar
+==========================
+Licensed under CC0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.pom
+Unspecified Copyright
+Reviewed by the WhiteSource Research Team
+Library copyrights could not be established
+
+rxjava-3.0.10.jar
+=================
+Licensed under Apache 2.0
+License terms can be found at: http://repo.jfrog.org/artifactory/third-party-releases/io/reactivex/rxjava3/rxjava/3.0.10/rxjava-3.0.10.pom
+Copyright 2016 RxJava Contributors
+
+s3-2.4.0.jar
+============
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/jclouds/api/s3/2.4.0/s3-2.4.0.pom
+Copyright 2009-2021 The Apache Software Foundation
+
+saaj-impl-1.4.0.jar
+===================
+Licensed under CDDL 1.0
+License terms can be found at: http://repo.jfrog.org/artifactory/list/repo1/com/sun/xml/messaging/saaj/saaj-impl/1.4.0/saaj-impl-1.4.0.pom
+Copyright 2011-2017 Oracle and
+Copyright 1991 , June
+Copyright 1989 Ty Coon, President of Vice This General Public License does not permit incorporating your program in
+Copyright 1995 Oct
+
+simpleclient-0.0.21.jar
+=======================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/io/prometheus/simpleclient/0.0.21/simpleclient-0.0.21.pom
+2015 Copyright 2012-2015 The Prometheus Authors
+
+simpleclient_common-0.0.21.jar
+==============================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/io/prometheus/simpleclient_common/0.0.21/simpleclient_common-0.0.21.pom
+2015 Copyright 2015 The Prometheus Authors
+
+simpleclient_dropwizard-0.0.21.jar
+==================================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/io/prometheus/simpleclient_dropwizard/0.0.21/simpleclient_dropwizard-0.0.21.pom
+2015 Copyright 2012-2015 The Prometheus Authors
+
+slf4j-api-1.7.30.jar
+====================
+Licensed under MIT
+License terms can be found at: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.pom
+Copyright QOS.ch
+
+slf4j-jdk14-1.7.30.jar
+======================
+Licensed under MIT
+License terms can be found at: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-jdk14/1.7.30/slf4j-jdk14-1.7.30.pom
+Copyright 2017 QOS.ch
+
+stax-api-1.0-2.jar
+==================
+Licensed under CDDL 1.1
+License terms can be found at: https://repo.maven.apache.org/maven2/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.pom
+Copyright 2021 oracle
+
+stax-ex-1.7.8.jar
+=================
+Licensed under CDDL 1.0
+License terms can be found at: http://repo.jfrog.org/artifactory/list/repo1/org/jvnet/staxex/stax-ex/1.7.8/stax-ex-1.7.8.pom
+1997 Copyright (c) 1997-2015 Oracle and/or its affiliates. All rights reserved.
+
+sts-2.4.0.jar
+=============
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/org/apache/jclouds/api/sts/2.4.0/sts-2.4.0.pom
+Copyright 2009-2021 The Apache Software Foundation
+
+super-csv-2.4.0.jar
+===================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/net/sf/supercsv/super-csv/2.4.0/super-csv-2.4.0.pom
+Copyright 2007 Kasper B
+Copyright 2019 The Apache Software Foundation, Licensed under the Apache License, Version 2.0
+
+swagger-models-1.5.16.jar
+=========================
+Licensed under Apache 2.0
+License terms can be found at: https://repo.maven.apache.org/maven2/io/swagger/swagger-models/1.5.16/swagger-models-1.5.16.pom
+2018 Copyright 2016 SmartBear Software
+
+validation-api-1.1.0.Final.jar
+==============================
+Licensed under Apache 2.0
+License terms can be found at: https://nexus.opendaylight.org/content/groups/public/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.pom
+2009 Copyright 2009-2013, Red Hat, Inc. and/or its affiliates, and individual contributors

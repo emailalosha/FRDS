@@ -1,0 +1,46 @@
+#
+# Copyright 2011-2020 ForgeRock AS. All Rights Reserved
+#
+# Use of this code requires a commercial software license with ForgeRock AS.
+# or with one of its affiliates. All use shall be exclusively subject
+# to such license between the licensee and ForgeRock AS.
+#
+
+dn: &{AM_CTS_BASE_DN}
+objectClass: top
+objectClass: untypedObject
+aci: (targetattr="*")(version 3.0; acl "Read and write application data"; allow (all)
+ (userdn = "ldap:///uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}");)
+aci: (targetattr="+")(version 3.0; acl "Read operational attributes"; allow (read, search, compare)
+ (userdn = "ldap:///uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}");)
+aci: (targetcontrol="PersistentSearch")(version 3.0; acl "Persistent searches"; allow (read)
+ (userdn = "ldap:///uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}");)
+
+dn: ou=openam-session,&{AM_CTS_BASE_DN}
+objectClass: organizationalUnit
+objectClass: top
+ou: openam-session
+
+dn: ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}
+ou: famrecords
+objectClass: organizationalUnit
+
+dn: ou=admins,ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}
+objectClass: top
+objectClass: organizationalunit
+ou: OpenAM Administrator
+
+dn: uid=openam_cts,ou=admins,ou=famrecords,ou=openam-session,&{AM_CTS_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: OpenAM Non-Admin-User
+sn: OpenAM
+userPassword: &{AM_CTS_ADMIN_PASSWORD}
+ds-privilege-name: update-schema
+ds-privilege-name: subentry-write
+ds-privilege-name: password-reset
+ds-privilege-name: unindexed-search
+ds-rlim-lookthrough-limit: 0
+ds-rlim-size-limit: 5000

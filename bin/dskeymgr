@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Copyright 2019 ForgeRock AS. All Rights Reserved
+#
+# Use of this code requires a commercial software license with ForgeRock AS.
+# or with one of its affiliates. All use shall be exclusively subject
+# to such license between the licensee and ForgeRock AS.
+#
+
+OPENDJ_INVOKE_CLASS="com.forgerock.opendj.ldap.tools.dskeymgr.DsKeyMgrTool"
+export OPENDJ_INVOKE_CLASS
+
+SCRIPT_NAME="dskeymgr"
+export SCRIPT_NAME
+
+SCRIPT_DIR=`dirname "${0}"`
+"${SCRIPT_DIR}/../lib/_client-script.sh" "${@}"
