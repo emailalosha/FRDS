@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.tokenstore.pod_name | default "forgerock-token-store" | quote }}
+  namespace: {{ .Values.secrets.namespace | quote }}
+data:
+  {{- (.Files.Glob "ds_config/token-store/*").AsConfig | nindent 2 }}

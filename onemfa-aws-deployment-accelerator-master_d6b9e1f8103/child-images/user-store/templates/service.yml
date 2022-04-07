@@ -1,0 +1,97 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.userstore.service_name | quote }}
+  namespace: {{ .Values.userstore.namespace }}
+  labels:
+    app: {{ .Values.userstore.pod_name | quote }}
+spec:
+  clusterIP: None
+  selector:
+    app: {{ .Values.userstore.pod_name | quote }}
+  ports:
+  - name: ldaps
+    port: 1636
+    targetPort: 1636
+    protocol: TCP
+  - name: https
+    port: 8443
+    targetPort: 8443
+    protocol: TCP
+  - name: admin
+    port: 4444
+    targetPort: 4444
+    protocol: TCP
+  - name: replication
+    port: 8989
+    targetPort: 8989
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forgerock-user-store-0
+  namespace: {{ .Values.userstore.namespace }}
+  labels:
+    app: forgerock-user-store
+    chart: forgerock-user-store
+    release: forgerock
+    heritage: Tiller
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  # Routes traffic only to node that matches selector. Removing any additional hops.
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Values.userstore.pod_name }}-0"
+  ports:
+  - name: ldaps
+    port: 1636
+    targetPort: 1636
+    protocol: TCP
+  - name: https
+    port: 8443
+    targetPort: 8443
+    protocol: TCP
+  - name: admin
+    port: 4444
+    targetPort: 4444
+    protocol: TCP
+  - name: replication
+    port: 8989
+    targetPort: 8989
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forgerock-user-store-1
+  namespace: {{ .Values.userstore.namespace }}
+  labels:
+    app: forgerock-user-store
+    chart: forgerock-user-store
+    release: forgerock
+    heritage: Tiller
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  # Routes traffic only to node that matches selector. Removing any additional hops.
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Values.userstore.pod_name }}-1"
+  ports:
+  - name: ldaps
+    port: 1636
+    targetPort: 1636
+    protocol: TCP
+  - name: https
+    port: 8443
+    targetPort: 8443
+    protocol: TCP
+  - name: admin
+    port: 4444
+    targetPort: 4444
+    protocol: TCP
+  - name: replication
+    port: 8989
+    targetPort: 8989
+    protocol: TCP

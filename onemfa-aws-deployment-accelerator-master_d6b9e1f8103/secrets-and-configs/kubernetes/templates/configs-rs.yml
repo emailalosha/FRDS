@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.replserver.pod_name | default "forgerock-repl-server" | quote }}
+  namespace: {{ .Values.secrets.namespace | quote }}
+data:
+  {{- (.Files.Glob "ds_config/repl-server/*").AsConfig | nindent 2 }}

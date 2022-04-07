@@ -1,0 +1,457 @@
+stages:
+  - build
+  - clean-up
+  - create-cluster
+  - create-vpc-peering
+  - cluster-pre-req
+  - deploy-blue-components
+  - deploy-green-components
+
+variables:
+  VAULT_BASE_URL: "https://midships-vault.vault.6ab12ea5-c7af-456f-81b5-e0aaa5c9df5e.aws.hashicorp.cloud:8200"
+  VAULT_TOKEN: "s.lvsd4kRuQmUfwY3m4glZ19km.MV86d"
+  CONFIGSTORE_VAULT_PATH: "forgerock/data/fr7/config-store"
+  USERSTORE_VAULT_PATH: "forgerock/data/fr7/user-store"
+  TOKENSTORE_VAULT_PATH: "forgerock/data/fr7/token-store"
+  REPLSERVER_VAULT_PATH: "forgerock/data/fr7/repl-server"
+  AM_VAULT_PATH: "forgerock/data/fr7/access-manager"
+  AM_LB_DOMAIN: "am.d2portal.co.uk"
+  DS_REPLICAS_CS: "2"
+  DS_REPLICAS_US: "2"
+  DS_REPLICAS_TS: "2"
+  DS_REPLICAS_RS: "2"
+  AM_REPLICAS: "2"
+  IDM_REPLICAS: "2"
+  AM_COOKIE_NAME: "iPlanetDirectoryPro"
+  SELF_REPL_TS: "false"
+  SELF_REPL_US: "false"
+  SELF_REPL_CS: "true"
+  ENV_TYPE: "SIT"
+  AM_VAULT_RUNTIME_PATH: "forgerock/data/sit/runtime/access-manager"
+  CS_K8S_SVC_URL: "forgerock-access-manager.forgerock.svc.cluster.local"
+  TS_K8S_SVC_URL: "forgerock-token-store.forgerock.svc.cluster.local"
+  US_K8S_SVC_URL: "forgerock-user-store.forgerock.svc.cluster.local"
+  USERSTORE_LOAD_SCHEMA: "true"
+  USERSTORE_LOAD_DSCONFIG: "true"
+  EXTERNAL_POLICY_STORE: "false"
+  AM_AMSTER_FILES: 'amster_DefaultCtsDataStoreProperties\,amster_platform'
+  AM_AUTH_TREES: 'authTrees_customers_login.sh\,authTrees_customers_register.sh\,authTrees_customers_stepup.sh'
+  PODNAME_AM: "forgerock-access-manager"
+  PODNAME_CS: "forgerock-config-store"
+  PODNAME_US: "forgerock-user-store"
+  PODNAME_TS: "forgerock-token-store"
+  PODNAME_RS: "forgerock-repl-server"
+  PODNAME_IDM: "forgerock-idm"
+  SERVICENAME_AM: "forgerock-access-manager"
+  SERVICENAME_CS: "forgerock-config-store"
+  SERVICENAME_US: "forgerock-user-store"
+  SERVICENAME_TS: "forgerock-token-store"
+  SERVICENAME_RS: "forgerock-repl-server"
+  SERVICENAME_IDM: "forgerock-idm"
+  BLUE_NAMESPACE: "forgerock"
+  GREEN_NAMESPACE: "forgerock"
+  IMAGE_PULL_SECRETS: "fr-nexus-docker"
+  CI_REGISTRY_URL: gcr.io/massive-dynamo-235117
+  JAVA_BASE_CONTAINER_IMAGE: ${CI_REGISTRY_URL}/java-base
+  TOMCAT_BASE_CONTAINER_IMAGE: ${CI_REGISTRY_URL}/tomcat-base
+  DS_BASE_CONTAINER_IMAGE: ${CI_REGISTRY_URL}/ds-base
+  AM_CONTAINER_IMAGE: ${CI_REGISTRY_URL}/openam
+  CFGSTORE_CONTAINER_IMAGE: ${CI_REGISTRY_URL}/config-store
+  TOKENSTORE_CONTAINER_IMAGE: ${CI_REGISTRY_URL}/token-store
+  USERSTORE_CONTAINER_IMAGE: ${CI_REGISTRY_URL}/user-store
+  POLICYSTORE_CONTAINER_IMAGE: ${CI_REGISTRY_URL}/policy-store
+  REPLSERVER_CONTAINER_IMAGE: ${CI_REGISTRY_URL}/repl-server
+  CLOUD_TYPE: sftp
+  STORAGE_BUCKET_PATH_JDK: gs://ready-to-integrate/bin/oracle/jdk
+  STORAGE_BUCKET_PATH_DS: gs://ready-to-integrate/bin/forgerock/directory-services
+  CFG_CUSTOM_JAVA: "false"
+  US_CUSTOM_JAVA: "false"
+  TS_CUSTOM_JAVA: "false"
+  RPL_CUSTOM_JAVA: "false"
+  PS_CUSTOM_JAVA: "false"
+  K8S_LOCATION: "aws"
+  LONDON_FR_CLUSTER1_CONFIG: ""
+  OREGON_FR_CLUSTER1_CONFIG: ""
+  CANADA_FR_CLUSTER1_CONFIG: ""
+  FR_KUBE_CONFIG: ${CANADA_FR_CLUSTER1_CONFIG}
+  CLUSTER_TYPE: "blue"
+  VPC_ID_BLUE: ""
+  VPC_ID_GREEN: ""
+  AWS_GREEN_REGION: "ca-central-1"
+  AWS_BLUE_REGION: "us-west-2"
+  AWS_BLUE_CLUSTER_NAME: "thblue"
+  AWS_GREEN_CLUSTER_NAME: "thegreen"
+  # AWS_BLUE_CLUSTER_NAME: "fr-blue"
+  # AWS_GREEN_CLUSTER_NAME: "fr-green"
+  AWS_PROFILE_NAME: "aws-to-aws"
+  DEPLOY_RS: "true"
+  DEPLOY_TS: "false"
+  DEPLOY_US: "true"
+  DEPLOY_AM: "false"
+
+build-docker-images:
+  image: alpine:3.10
+  stage: build
+  when: manual
+  tags:
+    - docker
+  before_script:
+    - apk update && apk add docker-cli
+    - mkdir -p $HOME/.docker
+    - echo "$GCP_SERVICE_KEY" >> "$HOME/.docker/config.json"
+    - docker login -u _json_key --password-stdin https://gcr.io < $HOME/.docker/config.json
+    - docker info
+  script:
+    - echo "Building docker images..."
+    - docker build --build-arg CLOUD_TYPE=${CLOUD_TYPE} --build-arg STORAGE_BUCKET_PATH_JDK=${STORAGE_BUCKET_PATH_JDK} -t ${JAVA_BASE_CONTAINER_IMAGE} java-base/.
+    - docker push ${JAVA_BASE_CONTAINER_IMAGE}
+    - docker build --build-arg IMAGE_SRC=${JAVA_BASE_CONTAINER_IMAGE} -t ${TOMCAT_BASE_CONTAINER_IMAGE} tomcat-base/.
+    - docker push ${TOMCAT_BASE_CONTAINER_IMAGE}
+    - docker build --build-arg IMAGE_SRC=${JAVA_BASE_CONTAINER_IMAGE} --build-arg CLOUD_TYPE=${CLOUD_TYPE} --build-arg STORAGE_BUCKET_PATH_DS=${STORAGE_BUCKET_PATH_DS} -t ${DS_BASE_CONTAINER_IMAGE} ds-base/.
+    - docker push ${DS_BASE_CONTAINER_IMAGE}
+    - if [ "$EXTERNAL_POLICY_STORE" == "true" ]; then docker build --build-arg IMAGE_SRC=${DS_BASE_CONTAINER_IMAGE} -t ${POLICYSTORE_CONTAINER_IMAGE} policy-store/. && docker push ${POLICYSTORE_CONTAINER_IMAGE}; fi
+    - docker build --build-arg IMAGE_SRC=${DS_BASE_CONTAINER_IMAGE} -t ${CFGSTORE_CONTAINER_IMAGE} config-store/.
+    - docker push ${CFGSTORE_CONTAINER_IMAGE}
+    - docker build --build-arg IMAGE_SRC=${DS_BASE_CONTAINER_IMAGE} -t ${TOKENSTORE_CONTAINER_IMAGE} token-store/.
+    - docker push ${TOKENSTORE_CONTAINER_IMAGE}
+    - docker build --build-arg IMAGE_SRC=${DS_BASE_CONTAINER_IMAGE} -t ${USERSTORE_CONTAINER_IMAGE} user-store/.
+    - docker push ${USERSTORE_CONTAINER_IMAGE}
+    - docker build --build-arg IMAGE_SRC=${TOMCAT_BASE_CONTAINER_IMAGE} -t ${AM_CONTAINER_IMAGE} access-manager/.
+    - docker push ${AM_CONTAINER_IMAGE}
+    - echo "Docker images successfully pushed to registry"
+
+clear-down-blue-environment:
+  image: alpine:3.10
+  stage: clean-up
+  when: manual
+  tags:
+    - docker
+  variables:
+    FR_KUBE_CONFIG: ${OREGON_FR_CLUSTER1_CONFIG}
+  before_script:
+    - chmod 660 cicd-scripts/setup-required-tools.sh
+    - chmod +x cicd-scripts/setup-required-tools.sh
+    - cicd-scripts/setup-required-tools.sh
+  script:
+    - |
+      path_kubeconfig="$HOME/.kube/config"
+      echo "-> Cleaning Cluster" >&2
+      helm ls --all --short -n "${BLUE_NAMESPACE}" | xargs helm uninstall -n "${BLUE_NAMESPACE}"
+      kubectl --kubeconfig "${path_kubeconfig}" delete pvc,pv --all --force --grace-period=0 -n "${BLUE_NAMESPACE}"
+      echo "Waiting 15 seconds for SVC to finish clearing up ..."
+      sleep 15
+      echo "-- Done" >&2
+      echo "" >&2
+
+clear-down-green-environment:
+  image: alpine:3.10
+  stage: clean-up
+  when: manual
+  tags:
+    - docker
+  variables:
+    FR_KUBE_CONFIG: ${CANADA_FR_CLUSTER1_CONFIG}
+  before_script:
+    - chmod 660 cicd-scripts/setup-required-tools.sh
+    - chmod +x cicd-scripts/setup-required-tools.sh
+    - cicd-scripts/setup-required-tools.sh
+  script:
+    - |
+      path_kubeconfig="$HOME/.kube/config"
+      echo "-> Cleaning Cluster" >&2
+      helm ls --all --short -n "${GREEN_NAMESPACE}" | xargs helm uninstall -n "${GREEN_NAMESPACE}"
+      kubectl --kubeconfig "${path_kubeconfig}" delete pvc,pv --all --force --grace-period=0 -n "${GREEN_NAMESPACE}"
+      echo "Waiting 15 seconds for SVC to finish clearing up ..."
+      sleep 15
+      echo "-- Done" >&2
+      echo "" >&2
+
+create-blue-cluster:
+  image: alpine:3.10
+  stage: create-cluster
+  when: manual
+  tags:
+    - docker
+  variables:
+    AWS_ACCESS_KEY_ID: ""
+    AWS_SECRET_ACCESS_KEY: ""
+    YAML_FILE_NAME: "blue.yml"
+    CIDR: 172.16.0.0/16
+  before_script:
+    - apk update && apk add curl bash wget tar python py-pip jq
+    - curl -L https://storage.googleapis.com/kubernetes-release/release/v1.15.1/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
+    - chmod u+x /usr/local/bin/kubectl 
+    - mkdir -p $HOME/.kube/
+    - pip install awscli
+    - | 
+      curl -sL "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp && \
+      mv /tmp/eksctl /usr/bin && \
+      chmod +x /usr/bin/eksctl
+    - eksctl info
+    - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
+    - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+    - aws configure set region ${AWS_BLUE_REGION}
+    - printf "%s\n%s\n%s\njson" "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" ${AWS_BLUE_REGION} | aws configure --profile ${AWS_PROFILE_NAME}
+    - cat ~/.aws/config
+    - cat ~/.aws/credentials
+  script:
+    - |
+      cat << EOF >> ${YAML_FILE_NAME}
+      apiVersion: eksctl.io/v1alpha5
+      kind: ClusterConfig
+      metadata:
+        name: ${AWS_BLUE_CLUSTER_NAME}
+        region: ${AWS_BLUE_REGION}
+        version: "1.21"
+      vpc:
+        cidr: ${CIDR}
+      managedNodeGroups:
+      - name: ng-${AWS_BLUE_CLUSTER_NAME}-${AWS_BLUE_REGION}
+        instanceType: t3.2xlarge
+        labels: {}
+        tags: {}
+        minSize: 1
+        maxSize: 1
+        desiredCapacity: 1
+        volumeSize: 100
+        privateNetworking: true
+        iam:
+          withAddonPolicies:
+            imageBuilder: true
+            autoScaler: true
+            externalDNS: true
+            certManager: true
+            appMesh: true
+            ebs: true
+            fsx: true
+            efs: true
+            albIngress: true
+            xRay: true
+            cloudWatch: true
+      EOF
+    - cat ${YAML_FILE_NAME}
+    # - eksctl delete cluster --region=${AWS_BLUE_REGION} --name=${AWS_BLUE_CLUSTER_NAME}
+    # - sleep 360
+    - eksctl create cluster -f ${YAML_FILE_NAME} --profile ${AWS_PROFILE_NAME}
+    - aws eks --region ${AWS_BLUE_REGION} update-kubeconfig --name ${AWS_BLUE_CLUSTER_NAME}
+    - kubectl config get-contexts
+    - eksctl utils describe-stacks --region=${AWS_BLUE_REGION} --cluster=${AWS_BLUE_CLUSTER_NAME} -o json >> ${AWS_BLUE_CLUSTER_NAME}.json
+    - VPC_ID_BLUE=$(jq -r '.[1].Outputs[] | select(.OutputKey=="VPC") | .OutputValue' ${AWS_BLUE_CLUSTER_NAME}.json)
+    - echo  ${VPC_ID_BLUE}
+
+create-green-cluster:
+  image: alpine:3.10
+  stage: create-cluster
+  when: manual
+  tags:
+    - docker
+  variables:
+    AWS_ACCESS_KEY_ID: ""
+    AWS_SECRET_ACCESS_KEY: ""
+    YAML_FILE_NAME: "green.yml"
+    CIDR: 10.0.0.0/16
+  before_script:
+    - apk update && apk add curl bash wget tar python py-pip jq
+    - curl -L https://storage.googleapis.com/kubernetes-release/release/v1.15.1/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
+    - chmod u+x /usr/local/bin/kubectl 
+    - mkdir -p $HOME/.kube/
+    - pip install awscli
+    - | 
+      curl -sL "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp && \
+      mv /tmp/eksctl /usr/bin && \
+      chmod +x /usr/bin/eksctl
+    - eksctl info
+    - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
+    - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+    - aws configure set region ${AWS_GREEN_REGION}
+    - printf "%s\n%s\n%s\njson" "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" ${AWS_GREEN_REGION} | aws configure --profile ${AWS_PROFILE_NAME}
+    - cat ~/.aws/config
+    - cat ~/.aws/credentials
+  script:
+    - |
+      cat << EOF >> ${YAML_FILE_NAME}
+      apiVersion: eksctl.io/v1alpha5
+      kind: ClusterConfig
+      metadata:
+        name: ${AWS_GREEN_CLUSTER_NAME}
+        region: ${AWS_GREEN_REGION}
+        version: "1.21"
+      vpc:
+        cidr: ${CIDR}
+      managedNodeGroups:
+      - name: ng-${AWS_GREEN_CLUSTER_NAME}-${AWS_GREEN_REGION}
+        instanceType: t3.2xlarge
+        labels: {}
+        tags: {}
+        minSize: 1
+        maxSize: 1
+        desiredCapacity: 1
+        volumeSize: 100
+        privateNetworking: true
+        iam:
+          withAddonPolicies:
+            imageBuilder: true
+            autoScaler: true
+            externalDNS: true
+            certManager: true
+            appMesh: true
+            ebs: true
+            fsx: true
+            efs: true
+            albIngress: true
+            xRay: true
+            cloudWatch: true
+      EOF
+    - cat ${YAML_FILE_NAME}
+    # - eksctl delete cluster --region=${AWS_GREEN_REGION} --name=${AWS_GREEN_CLUSTER_NAME}
+    # - sleep 360
+    - eksctl create cluster -f ${YAML_FILE_NAME} --profile ${AWS_PROFILE_NAME}
+    - aws eks --region ${AWS_GREEN_REGION} update-kubeconfig --name ${AWS_GREEN_CLUSTER_NAME}
+    - kubectl config get-contexts
+    - eksctl utils describe-stacks --region=${AWS_GREEN_REGION} --cluster=${AWS_GREEN_CLUSTER_NAME} -o json >> ${AWS_GREEN_CLUSTER_NAME}.json
+    - VPC_ID_GREEN=$(jq -r '.[1].Outputs[] | select(.OutputKey=="VPC") | .OutputValue' ${AWS_GREEN_CLUSTER_NAME}.json)
+    - echo  ${VPC_ID_GREEN}
+
+vpc-peering-creation:
+  image: alpine:3.10
+  stage: create-vpc-peering
+  when: manual
+  tags:
+    - docker
+  variables:
+    AWS_ACCESS_KEY_ID: ""
+    AWS_SECRET_ACCESS_KEY: ""
+  before_script:
+    - apk update && apk add curl bash wget tar python py-pip jq
+    - pip install awscli
+    - | 
+      curl -sL "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp && \
+      mv /tmp/eksctl /usr/bin && \
+      chmod +x /usr/bin/eksctl
+    - eksctl info
+    - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
+    - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+    - aws configure set region ${AWS_BLUE_REGION}
+  script:
+    - eksctl utils describe-stacks --region=${AWS_BLUE_REGION} --cluster=${AWS_BLUE_CLUSTER_NAME} -o json >> ${AWS_BLUE_CLUSTER_NAME}.json
+    - VPC_ID_BLUE=$(jq -r '.[1].Outputs[] | select(.OutputKey=="VPC") | .OutputValue' ${AWS_BLUE_CLUSTER_NAME}.json)
+    - eksctl utils describe-stacks --region=${AWS_GREEN_REGION} --cluster=${AWS_GREEN_CLUSTER_NAME} -o json >> ${AWS_GREEN_CLUSTER_NAME}.json
+    - VPC_ID_GREEN=$(jq -r '.[1].Outputs[] | select(.OutputKey=="VPC") | .OutputValue' ${AWS_GREEN_CLUSTER_NAME}.json)
+    - echo  ${VPC_ID_BLUE}
+    - echo  ${VPC_ID_GREEN}
+    - aws ec2 create-vpc-peering-connection --vpc-id ${VPC_ID_BLUE} --peer-vpc-id ${VPC_ID_GREEN} --peer-region ${AWS_GREEN_REGION} 
+    - sleep 300
+    - aws ec2 describe-vpc-peering-connections --region ${AWS_GREEN_REGION} --filters Name=status-code,Values=pending-acceptance >> peering.json
+    - cat peering.json
+    - VPC_PEERING_CON_ID=$(jq -r '.VpcPeeringConnections[].VpcPeeringConnectionId' peering.json)
+    - echo ${VPC_PEERING_CON_ID}
+    - aws configure set region ${AWS_GREEN_REGION}
+    - aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id ${VPC_PEERING_CON_ID}
+
+setup-blue-cluster-pre-req:
+  image: alpine:3.10
+  stage: cluster-pre-req
+  when: manual
+  tags:
+    - docker
+  variables:
+    FR_KUBE_CONFIG: ${OREGON_FR_CLUSTER1_CONFIG}
+  before_script:
+    - chmod 660 cicd-scripts/setup-required-tools.sh
+    - chmod +x cicd-scripts/setup-required-tools.sh
+    - cicd-scripts/setup-required-tools.sh
+  script:
+    - |
+      path_gcp_registry_admin="/tmp/gcp-docker-registry-admin.json"
+      path_kubeconfig="$HOME/.kube/config"
+      echo ${GCP_REGISTRY_ADMIN} | base64 -d > ${path_gcp_registry_admin}
+      echo "-> Creating Namespace" >&2
+      kubectl --kubeconfig "${path_kubeconfig}" create ns "${BLUE_NAMESPACE}"
+      echo "-- Done" >&2
+      echo "" >&2
+      echo "-> Creating GCP Image Pull Secret" >&2
+      #kubectl --kubeconfig "${path_kubeconfig}" delete secret "${IMAGE_PULL_SECRETS}" --namespace "${BLUE_NAMESPACE}"
+      kubectl --kubeconfig "${path_kubeconfig}" create secret docker-registry "${IMAGE_PULL_SECRETS}" \
+        --docker-server=gcr.io --docker-username=_json_key --docker-email=taweh@midships.io \
+        --docker-password="$(cat ${path_gcp_registry_admin})" --namespace "${BLUE_NAMESPACE}"
+      echo "-- Done" >&2
+      echo "" >&2
+
+setup-green-cluster-pre-req:
+  image: alpine:3.10
+  stage: cluster-pre-req
+  when: manual
+  tags:
+    - docker
+  variables:
+    FR_KUBE_CONFIG: ${CANADA_FR_CLUSTER1_CONFIG}
+  before_script:
+    - chmod 660 cicd-scripts/setup-required-tools.sh
+    - chmod +x cicd-scripts/setup-required-tools.sh
+    - cicd-scripts/setup-required-tools.sh
+  script:
+    - |
+      path_gcp_registry_admin="/tmp/gcp-docker-registry-admin.json"
+      path_kubeconfig="$HOME/.kube/config"
+      echo ${GCP_REGISTRY_ADMIN} | base64 -d > ${path_gcp_registry_admin}
+      echo "-> Creating Namespace" >&2
+      kubectl --kubeconfig "${path_kubeconfig}" create ns "${GREEN_NAMESPACE}"
+      echo "-- Done" >&2
+      echo "" >&2
+      echo "-> Creating GCP Image Pull Secret" >&2
+      #kubectl --kubeconfig "${path_kubeconfig}" delete secret "${IMAGE_PULL_SECRETS}" --namespace "${GREEN_NAMESPACE}"
+      kubectl --kubeconfig "${path_kubeconfig}" create secret docker-registry "${IMAGE_PULL_SECRETS}" \
+        --docker-server=gcr.io --docker-username=_json_key --docker-email=taweh@midships.io \
+        --docker-password="$(cat ${path_gcp_registry_admin})" --namespace "${GREEN_NAMESPACE}"
+      echo "-- Done" >&2
+      echo "" >&2
+
+deploy-blue-components:
+  image: alpine:3.10
+  stage: deploy-blue-components
+  when: manual
+  tags:
+    - docker
+  variables:
+    FR_KUBE_CONFIG: ${OREGON_FR_CLUSTER1_CONFIG}
+  before_script:
+    - chmod 660 cicd-scripts/setup-required-tools.sh
+    - chmod +x cicd-scripts/setup-required-tools.sh
+    - cicd-scripts/setup-required-tools.sh
+  script:
+    - chmod 660 cicd-scripts/deploy-multi-region.sh
+    - chmod +x cicd-scripts/deploy-multi-region.sh
+    - cicd-scripts/deploy-multi-region.sh blue
+
+deploy-green-components:
+  image: alpine:3.10
+  stage: deploy-green-components
+  when: manual
+  tags:
+    - docker
+  variables:
+    FR_KUBE_CONFIG: ${CANADA_FR_CLUSTER1_CONFIG}
+  before_script:
+    - apk update && apk add curl bash wget tar python py-pip
+    - curl -L https://storage.googleapis.com/kubernetes-release/release/v1.15.1/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
+    - chmod u+x /usr/local/bin/kubectl 
+    - mkdir -p $HOME/.kube/
+    - echo ${OREGON_FR_CLUSTER1_CONFIG} | base64 -d > $HOME/.kube/config
+    - chmod 600 $HOME/.kube/config
+    - cat $HOME/.kube/config
+    - pip install awscli
+    - kubectl get svc
+    - kubectl get svc | grep forgerock-repl-server- | awk '{print $4}' > ipList.txt
+    - cat ipList.txt
+    - export hostAliases_ip1=$(ping -c 1 -4 $(head -1 ipList.txt) | grep -Eo \([0-9]+\\.\){3}[0-9]+)
+    - echo $hostAliases_ip1
+    - export hostAliases_ip2=$(ping -c 1 -4 $(tail -1 ipList.txt) | grep -Eo \([0-9]+\\.\){3}[0-9]+)
+    - echo $hostAliases_ip2
+    - rm -rf $HOME/.kube/
+    - chmod 660 cicd-scripts/setup-required-tools.sh
+    - chmod +x cicd-scripts/setup-required-tools.sh
+    - cicd-scripts/setup-required-tools.sh
+  script:
+    - chmod 660 cicd-scripts/deploy-multi-region.sh
+    - chmod +x cicd-scripts/deploy-multi-region.sh
+    - cicd-scripts/deploy-multi-region.sh green

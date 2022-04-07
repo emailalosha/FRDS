@@ -1,0 +1,1 @@
+update Platform --global --body '{"locale":"en_US","cookieDomains":["!!DOMAIN1!!","!!DOMAIN2!!","localhost"]}'

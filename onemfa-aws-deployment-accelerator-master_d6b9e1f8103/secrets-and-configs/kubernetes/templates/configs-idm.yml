@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.idm.pod_name | default "forgerock-idm" | quote }}
+  namespace: {{ .Values.secrets.namespace | quote }}
+data:
+  {{- (.Files.Glob "idm_config/*").AsConfig | nindent 2 }}

@@ -1,0 +1,13 @@
+**/.project
+**/.settings
+**/.classpath
+openam-nodes/*/.idea/
+openam-nodes/*/target/
+openam-nodes/*/*.iml
+openam-nodes/*/.classpath
+openam-nodes/*/.project
+openam-nodes/*/.factorypath
+openam-nodes/*/.settings
+gcp-gcs-service-account.json
+.DS_Store
+ignore

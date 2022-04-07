@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.userstore.pod_name | default "forgerock-user-store" | quote }}
+  namespace: {{ .Values.secrets.namespace | quote }}
+data:
+  {{- (.Files.Glob "ds_config/user-store/*").AsConfig | nindent 2 }}
